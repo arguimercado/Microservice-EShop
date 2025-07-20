@@ -1,10 +1,11 @@
 ﻿
 using Catalog.Api.Products.Models;
 
+
 namespace Catalog.Api.Products.Features.Commands;
 
 public record UpdateProductRequest(string Name, string Description, decimal Price, string? ImageFile);
-public record UpdateProductCommand(Guid Id, UpdateProductRequest Request) : ICommand<Unit>;
+public record UpdateProductCommand(Guid Id, UpdateProductRequest Request) : ICommand;
 
 public class UpdateProductCommandValidator : AbstractValidator<UpdateProductCommand>
 {
@@ -17,13 +18,15 @@ public class UpdateProductCommandValidator : AbstractValidator<UpdateProductComm
     }
 }
 
-internal class UpdateProductHandler(IDocumentSession session) : ICommandHandler<UpdateProductCommand,Unit>
+internal class UpdateProductHandler(IDocumentSession session) : ICommandHandler<UpdateProductCommand>
 {
-    public async Task<Unit> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Unit>> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
+
         var existingProduct = await session.LoadAsync<Product>(request.Id, cancellationToken);
 
-        if (existingProduct == null) {
+        if (existingProduct == null)
+        {
             throw new KeyNotFoundException($"Product with Id {request.Id} not found.");
         }
 
@@ -33,7 +36,6 @@ internal class UpdateProductHandler(IDocumentSession session) : ICommandHandler<
 
         await session.SaveChangesAsync(cancellationToken);
 
-        return Unit.Value;
-
+        return Result.Ok(Unit.Value);
     }
 }

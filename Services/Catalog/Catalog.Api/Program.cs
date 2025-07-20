@@ -3,7 +3,6 @@ using Catalog.Api.Commons.Data;
 using Catalog.Api.Commons.Extensions;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Configuration;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,10 +36,10 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.MapOpenApi();
+    app.MapScalarApiReference();
     
 }
-app.MapOpenApi();
-app.MapScalarApiReference();
 app.UseExceptionHandler();
 app.UseHttpsRedirection();
 app.MapCarter();

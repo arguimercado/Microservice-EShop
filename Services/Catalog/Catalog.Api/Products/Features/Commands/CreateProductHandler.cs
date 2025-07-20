@@ -1,6 +1,5 @@
 ﻿using Catalog.Api.Products.Models;
-
-
+using FluentResults;
 
 namespace Catalog.Api.Products.Features.Commands;
 
@@ -33,16 +32,16 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
 internal class CreateProductHandler(IDocumentSession session) : ICommandHandler<CreateProductCommand, CreateProductResponse>
 {
     
-    public async  Task<CreateProductResponse> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    public async Task<Result<CreateProductResponse>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
-        var newProduct = Product.Create(request.Request.Name,request.Request.Description,request.Request.ImageFile, request.Request.Price);
-        
+        var newProduct = Product.Create(request.Request.Name, request.Request.Description, request.Request.ImageFile, request.Request.Price);
+
         newProduct.AddCategoryRange(request.Request.Categories ?? new List<string>());
-        
+
         //save 
         session.Store(newProduct);
         await session.SaveChangesAsync(cancellationToken);
 
-        return await Task.FromResult(new CreateProductResponse(newProduct.Id));
+        return Result.Ok(new CreateProductResponse(newProduct.Id));
     }
 }
