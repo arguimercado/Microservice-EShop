@@ -16,8 +16,4 @@
 	  
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\BuildingBlocks\ClassLibrary1\BuildingBlocks.csproj" />
-  </ItemGroup>
-
 </Project>
