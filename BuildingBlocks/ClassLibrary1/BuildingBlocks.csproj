@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<ItemGroup>
+		<PackageReference Include="Carter" />
+		<PackageReference Include="Mediatr" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Abstracts\" />
+	</ItemGroup>
+
+</Project>

@@ -4,11 +4,13 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- api -->
-    <PackageVersion Include="Carter" Version="8.2.1" />
-	  <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.3" />
+    <PackageVersion Include="Carter" Version="8.2.0" />
+    <PackageVersion Include="Marten" Version="8.3.3" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.3" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.6.3" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="7.3.1" />
     <PackageVersion Include="FluentResults" Version="3.16.0" />
-    <PackageVersion Include="MediatR" Version="12.4.1" />
+    <PackageVersion Include="MediatR" Version="13.0.0" />
   </ItemGroup>
 </Project>
