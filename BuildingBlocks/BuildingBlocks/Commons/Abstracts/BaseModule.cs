@@ -1,4 +1,8 @@
-﻿namespace Catalog.Api.Commons.Abstracts;
+﻿using Carter;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
+
+namespace BuildingBlocks.Commons.Abstracts;
 
 public abstract class BaseModule : ICarterModule
 {

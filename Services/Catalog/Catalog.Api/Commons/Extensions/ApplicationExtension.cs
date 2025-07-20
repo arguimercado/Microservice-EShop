@@ -1,4 +1,4 @@
-﻿using Catalog.Api.Commons.Behaviors;
+﻿using BuildingBlocks.Commons.Behaviors;
 
 namespace Catalog.Api.Commons.Extensions;
 
@@ -11,7 +11,8 @@ public static class ApplicationExtension
         services.AddMediatR(cfg => {
             cfg.RegisterServicesFromAssembly(typeof(ApplicationExtension).Assembly);
             cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
-        
+            cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
+
         });
 
         // Register FluentValidation

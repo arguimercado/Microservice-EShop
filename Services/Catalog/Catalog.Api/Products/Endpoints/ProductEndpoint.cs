@@ -1,8 +1,10 @@
 ﻿
-using Catalog.Api.Commons.Abstracts;
 using Catalog.Api.Products.Features.Commands;
 using Catalog.Api.Products.Features.Queries;
 using Microsoft.AspNetCore.Mvc;
+
+using BuildingBlocks.Commons.Abstracts;
+
 
 namespace Catalog.Api.Products.Endpoints;
 

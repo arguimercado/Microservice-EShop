@@ -1,12 +1,17 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
-namespace Catalog.Api.Commons.Extensions;
+namespace BuildingBlocks.Commons.Exceptions;
 
-public class GlobalExceptionHandler : IExceptionHandler
+public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
+        logger.LogError(exception, "Unhandled exception occurred. StackTrace: {StackTrace}", exception.StackTrace);
+       
+        
         httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
         httpContext.Response.ContentType = "application/json";
 
@@ -14,7 +19,7 @@ public class GlobalExceptionHandler : IExceptionHandler
         {
             Message = "An unexpected error occurred.",
             Details = exception.Message,
-            StackTrace = exception.StackTrace
+            exception.StackTrace
         };
 
 

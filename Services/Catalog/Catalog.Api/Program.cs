@@ -1,3 +1,4 @@
+using BuildingBlocks.Commons.Exceptions;
 using Catalog.Api.Commons.Extensions;
 using Scalar.AspNetCore;
 
