@@ -4,8 +4,9 @@ using System.Diagnostics;
 
 namespace BuildingBlocks.Commons.Behaviors;
 
-public class LoggingBehavior<TRequest, TResponse>(ILogger<LoggingBehavior<TRequest, TResponse>> logger) : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : notnull
+public class LoggingBehavior<TRequest, TResponse>(ILogger<LoggingBehavior<TRequest, TResponse>> logger) : 
+    IPipelineBehavior<TRequest, TResponse>
+    where TRequest : notnull, IRequest<TResponse>
     where TResponse : notnull
 {
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)

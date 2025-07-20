@@ -33,9 +33,9 @@ public class ProductEndpoint : BaseModule
             return HandleResults(response);
         }).WithName("Update Product");
 
-        group.MapGet("", async (ISender sender,CancellationToken cancellationToken = default) =>
+        group.MapGet("", async ([AsParameters]GetProductsRequest request, ISender sender,CancellationToken cancellationToken = default) =>
         {
-            var query = new GetProductsQuery();
+            var query = new GetProductsQuery(request);
             var response = await sender.Send(query,cancellationToken);
 
             return HandleResults(response);

@@ -5,7 +5,7 @@ using MediatR;
 namespace BuildingBlocks.Commons.Behaviors;
 
 public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : ICommand<TResponse>
+    where TRequest : IRequest<TResponse>
     where TResponse : notnull // Added this constraint to satisfy the 'notnull' requirement
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;

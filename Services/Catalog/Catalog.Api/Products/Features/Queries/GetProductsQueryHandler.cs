@@ -1,20 +1,25 @@
 ﻿using Catalog.Api.Products.Dtos;
 using Catalog.Api.Products.Models;
+using Marten.Pagination;
 
 namespace Catalog.Api.Products.Features.Queries;
 
-public record ProductResponse(IEnumerable<ProductDto> Products);
+public record GetProductsResponse(IEnumerable<ProductDto> Products);
 
-public record GetProductsQuery : IQuery<ProductResponse>;
+public record GetProductsRequest(int? PageNumber = 1,int? PageSize = 10);
+
+public record GetProductsQuery(GetProductsRequest Request) : IQuery<GetProductsResponse>;
 
 internal class GetProductsQueryHandler(IDocumentSession session,ILogger<GetProductsQueryHandler> logger)
-    : IQueryHandler<GetProductsQuery, ProductResponse>
+    : IQueryHandler<GetProductsQuery, GetProductsResponse>
 {
-    public async Task<ProductResponse> Handle(GetProductsQuery request, CancellationToken cancellationToken)
+    public async Task<GetProductsResponse> Handle(GetProductsQuery request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Get Products Query Handler Invoked");
-        var products = await session.Query<Product>().ToListAsync(cancellationToken);
+        var products = await session
+                                .Query<Product>()
+                                .ToPagedListAsync(request.Request.PageNumber ?? 1, request.Request.PageSize ?? 10, cancellationToken);
 
-        return new ProductResponse(products.Select(p => new ProductDto(p)));
+        return new GetProductsResponse(products.Select(p => new ProductDto(p)));
     }
 }

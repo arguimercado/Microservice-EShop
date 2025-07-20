@@ -6,6 +6,13 @@ public class Product
     {
         return new Product(Guid.NewGuid(), name, description,imageFile, price);
     }
+
+    public static Product Create(string name, string description, string? imageFile, decimal price,IEnumerable<string> categories)
+    {
+        var product = new Product(Guid.NewGuid(), name, description, imageFile, price);
+        product.AddCategoryRange(categories);
+        return product;
+    }
     public Product() { }
 
     protected Product(Guid id, string name, string description,string? imageFile, decimal price)
