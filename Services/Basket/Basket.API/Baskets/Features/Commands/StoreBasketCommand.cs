@@ -1,6 +1,30 @@
-﻿namespace Basket.API.Baskets.Features.Commands
+﻿using Basket.API.Baskets.Models;
+
+namespace Basket.API.Baskets.Features.Commands;
+
+public record StoreBasketCommand(ShoppingCart Cart) : ICommand;
+
+public class StoreBasketValidator : AbstractValidator<StoreBasketCommand>
 {
-    public class StoreBasketCommand
+    public StoreBasketValidator()
     {
+        RuleFor(x => x.Cart)
+            .NotNull()
+            .WithMessage("Shopping cart cannot be null.");
+        RuleFor(x => x.Cart.UserName)
+            .NotEmpty()
+            .WithMessage("Username is required.");
+       
     }
 }
+
+internal class StoreBasketCommandHandler : ICommandHandler<StoreBasketCommand>
+{
+    public async Task<Result<Unit>> Handle(StoreBasketCommand request, CancellationToken cancellationToken)
+    {
+        ShoppingCart cart = ShoppingCart.Create(request.Cart.UserName, request.Cart.Items);
+
+        return await Task.FromResult(Result.Ok(Unit.Value));
+    }
+}
+
