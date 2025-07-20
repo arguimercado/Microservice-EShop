@@ -4,8 +4,20 @@ using Catalog.Api.Products.Models;
 namespace Catalog.Api.Products.Features.Commands;
 
 public record UpdateProductRequest(string Name, string Description, decimal Price, string? ImageFile);
-public record UpdateProductCommand(Guid Id, UpdateProductRequest Request) : ICommand;
-internal class UpdateProductHandler(IDocumentSession session) : ICommandHandler<UpdateProductCommand>
+public record UpdateProductCommand(Guid Id, UpdateProductRequest Request) : ICommand<Unit>;
+
+public class UpdateProductCommandValidator : AbstractValidator<UpdateProductCommand>
+{
+    public UpdateProductCommandValidator()
+    {
+        RuleFor(x => x.Id).NotEmpty().WithMessage("Product Id is required.");
+        RuleFor(x => x.Request.Name).NotNull().NotEmpty().WithMessage("Name is required.");
+        RuleFor(x => x.Request.Description).NotNull().NotEmpty().WithMessage("Description is required.");
+        RuleFor(x => x.Request.Price).GreaterThan(0).WithMessage("Price must be greater than zero.");
+    }
+}
+
+internal class UpdateProductHandler(IDocumentSession session) : ICommandHandler<UpdateProductCommand,Unit>
 {
     public async Task<Unit> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {

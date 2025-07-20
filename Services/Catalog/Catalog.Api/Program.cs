@@ -13,6 +13,8 @@ builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddOpenApi();
 builder.Services.AddCarter();
 
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 
 var app = builder.Build();
@@ -23,7 +25,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
-
+app.UseExceptionHandler();
 app.UseHttpsRedirection();
 app.MapCarter();
 
