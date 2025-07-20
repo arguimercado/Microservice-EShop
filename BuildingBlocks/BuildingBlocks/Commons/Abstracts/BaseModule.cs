@@ -22,7 +22,7 @@ public abstract class BaseModule : ICarterModule
             // Handle other errors as needed
         }
 
-        return TypedResults.Ok(data);
+        return TypedResults.Ok(data.Value);
     }
     public virtual void AddRoutes(IEndpointRouteBuilder app)
     {
