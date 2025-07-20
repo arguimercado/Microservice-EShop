@@ -21,7 +21,15 @@ public class ProductEndpoint : BaseModule
             var response = await sender.Send(command);
 
             return HandleResults(response);
-        });
+        }).WithName("Create Product");
+
+        group.MapPut("/{id:guid}", async (ISender sender,[FromRoute]Guid id, [FromBody]UpdateProductRequest request) =>
+        {
+            var command = new UpdateProductCommand(id,request);
+            var response = await sender.Send(command);
+
+            return HandleResults(response);
+        }).WithName("Update Product");
 
         group.MapGet("", async (ISender sender) =>
         {

@@ -2,7 +2,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Carter" />
-		<PackageReference Include="Mediatr" />
+		<PackageReference Include="MediatR" />
 	</ItemGroup>
 
 	<ItemGroup>

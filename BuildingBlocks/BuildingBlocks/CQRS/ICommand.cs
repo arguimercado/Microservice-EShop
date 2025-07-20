@@ -2,20 +2,21 @@
 
 namespace BuildingBlocks.CQRS;
 
-public interface ICommand : ICommand<Unit> { }
+// ICommand does not require variance, so we remove the 'in' keyword from TResponse
+public interface ICommand : IRequest<Unit> { }
 
 public interface ICommand<out TResponse> : IRequest<TResponse>
-{
-}
-
-
-public interface ICommandHandler<in TCommand, TResponse> : IRequestHandler<TCommand, TResponse>
-    where TCommand : ICommand<TResponse>
     where TResponse : notnull
 {
 }
 
-public interface ICommandHandler<in TCommand> : ICommandHandler<TCommand, Unit>
-    where TCommand : ICommand<Unit>
+public interface ICommandHandler<in TCommand> : IRequestHandler<TCommand, Unit>
+    where TCommand : ICommand
+{
+}
+
+public interface ICommandHandler<in TCommand, TResponse> : IRequestHandler<TCommand, TResponse>
+    where TCommand : ICommand<TResponse>
+    where TResponse : notnull
 {
 }

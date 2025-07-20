@@ -55,6 +55,15 @@ public class Product
         }
     }
 
+    public void Update(string name, string description, string? imageFile, decimal price)
+    {
+        Name = name;
+        Description = description;
+        ImageFile = imageFile;
+        Price = price;
+        LastModifiedOn = DateTime.UtcNow;
+    }
+
 
 
 
