@@ -25,9 +25,9 @@ var connectionString = builder.Configuration.GetConnectionString("CatalogConnect
 builder.Services.AddHealthChecks()
     .AddNpgSql(connectionString!);
 
+builder.Services.AddOpenApi();
 if(builder.Environment.IsDevelopment())
 {
-    builder.Services.AddOpenApi();
     builder.Services.InitializeMartenWith<CatalogInitialData>();
     
 }
@@ -38,9 +38,9 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     
-    app.MapOpenApi();
-    app.MapScalarApiReference();
 }
+app.MapOpenApi();
+app.MapScalarApiReference();
 app.UseExceptionHandler();
 app.UseHttpsRedirection();
 app.MapCarter();
