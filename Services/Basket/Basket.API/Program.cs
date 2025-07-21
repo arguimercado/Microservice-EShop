@@ -1,3 +1,4 @@
+using Basket.API.Commons.Extensions;
 using BuildingBlocks.Commons.Exceptions;
 using Catalog.Api.Commons.Extensions;
 using HealthChecks.UI.Client;
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddApplication();
+builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddCarter();
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();

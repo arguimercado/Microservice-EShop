@@ -32,6 +32,14 @@ public class BasketEndpoint : BaseModule
         }).WithName("Create Basket")
         .WithDescription("Create a new shopping cart for the user.")
         .WithDisplayName("CreateBasket");
+
+        appGroup.MapDelete("{id}", async ([FromRoute] string id, ISender sender) =>
+        {
+            var command = new DeleteBasketCommand(id);
+            var result = await sender.Send(command);
+
+            return HandleResults(result);
+        });
     }
     
 }

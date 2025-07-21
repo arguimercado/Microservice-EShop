@@ -13,12 +13,17 @@ public abstract class BaseModule : ICarterModule
         if (data.IsFailed)
         {
             // Check if any error is a ValidationError
-            bool hasValidationError = data.Errors.Any(e => e is ValidationErrorResult);
-            if (hasValidationError)
+            bool hasNotFoundError = data.Errors.Any(e => e is NotFoundErrorResult);
+            if (hasNotFoundError)
             {
                 // Handle validation error (e.g., return BadRequest)
+                return TypedResults.NotFound(data.Errors);
+            }
+            else
+            {
                 return TypedResults.BadRequest(data.Errors);
             }
+            
             // Handle other errors as needed
         }
 

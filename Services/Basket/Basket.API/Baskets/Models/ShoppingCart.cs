@@ -2,14 +2,15 @@
 {
     public class ShoppingCart
     {
-        public static ShoppingCart Create(string username,List<ShoppingCartItem> items = null)
+        public static ShoppingCart Create(string username,List<ShoppingCartItem>? items = null)
         {
             return new ShoppingCart(username)
             {
                 Items = items ?? new List<ShoppingCartItem>()
             };
         }
-        public string UserName { get; set; }
+        public string Id { get; set; } = default!;
+        public string UserName { get; set; } = default!;
         public List<ShoppingCartItem> Items { get; set; } = new();
 
         public decimal TotalPrice => Items.Sum(x => x.Price * x.Quantity);
@@ -17,10 +18,10 @@
         public ShoppingCart(string username)
         {
             UserName = username;
+            Id = Guid.NewGuid().ToString();
         }
 
-        public ShoppingCart()
-        {
+        public ShoppingCart() {
             
         }
     }
