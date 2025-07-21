@@ -18,6 +18,12 @@ public static class InfrastructureExtension
         }).UseLightweightSessions();
 
         services.AddScoped<IBasketRepository,BasketRepository>();
+        services.Decorate<IBasketRepository, CachedBasketRepository>();
+        services.AddStackExchangeRedisCache(opt =>
+        {
+            opt.Configuration = configuration.GetConnectionString("RedisConnection");
+           
+        });
 
         return services;
     }

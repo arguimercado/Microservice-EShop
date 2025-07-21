@@ -16,7 +16,13 @@ builder.Services.AddCarter();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 builder.Services.AddOpenApi();
-builder.Services.AddHealthChecks();
+
+var connectionNpSqlString = builder.Configuration.GetConnectionString("BasketConnection");
+var connectionRedisString = builder.Configuration.GetConnectionString("RedisConnection");
+builder.Services.AddHealthChecks()
+    .AddNpgSql(connectionNpSqlString!)
+    .AddRedis(connectionRedisString!);
+
 
 var app = builder.Build();
 
