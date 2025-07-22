@@ -3,6 +3,8 @@ using Basket.API.Baskets.Models;
 
 namespace Basket.API.Baskets.Features.Commands;
 
+
+
 public record StoreBasketCommand(ShoppingCart Cart) : ICommand;
 
 public class StoreBasketValidator : AbstractValidator<StoreBasketCommand>
@@ -19,11 +21,28 @@ public class StoreBasketValidator : AbstractValidator<StoreBasketCommand>
     }
 }
 
-internal class StoreBasketCommandHandler(IBasketRepository basketRepository) : ICommandHandler<StoreBasketCommand>
+internal class StoreBasketCommandHandler(
+    IBasketRepository basketRepository,
+    IDiscountService discountService) : ICommandHandler<StoreBasketCommand>
 {
     public async Task<Result<Unit>> Handle(StoreBasketCommand request, CancellationToken cancellationToken)
     {
-        ShoppingCart cart = ShoppingCart.Create(request.Cart.UserName, request.Cart.Items);
+
+        ShoppingCart cart = ShoppingCart.Create(request.Cart.UserName);
+
+        var itemsTask = request.Cart.Items.Select(async m => new ShoppingCartItem
+        {
+            Color = m.Color,
+            Price = await discountService.CalculateDiscountPrice(m.ProductId.ToString(), m.Price)
+                            .ConfigureAwait(false),
+            ProductId = m.ProductId,
+            ProductName = m.ProductName,
+            Quantity = m.Quantity
+        });
+
+        var items = await Task.WhenAll(itemsTask);
+
+        cart.UpdateItems(items);
 
         await basketRepository.StoreBasketAsync(cart, cancellationToken);
             

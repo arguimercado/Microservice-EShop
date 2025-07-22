@@ -11,7 +11,7 @@ builder.Services.AddGrpcReflection();
 
 builder.Services.AddDbContext<DiscountContext>(opt =>
 {
-    var connectionString = builder.Configuration.GetConnectionString("DicountConnection");
+    var connectionString = builder.Configuration.GetConnectionString("DiscountConnection");
     opt.UseSqlite(connectionString);
 });
 

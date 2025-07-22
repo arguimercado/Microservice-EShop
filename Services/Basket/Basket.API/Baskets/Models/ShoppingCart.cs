@@ -2,6 +2,12 @@
 {
     public class ShoppingCart
     {
+
+        public static ShoppingCart Create(string username)
+        {
+            return new ShoppingCart(username);
+        }
+
         public static ShoppingCart Create(string username,List<ShoppingCartItem>? items = null)
         {
             return new ShoppingCart(username)
@@ -14,6 +20,12 @@
         public List<ShoppingCartItem> Items { get; set; } = new();
 
         public decimal TotalPrice => Items.Sum(x => x.Price * x.Quantity);
+
+        public void UpdateItems(IEnumerable<ShoppingCartItem> items)
+        {
+            Items.Clear();
+            Items.AddRange(items);
+        }
 
         public ShoppingCart(string username)
         {
