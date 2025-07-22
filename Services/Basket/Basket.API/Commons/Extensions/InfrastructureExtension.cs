@@ -35,7 +35,16 @@ public static class InfrastructureExtension
                 throw new InvalidOperationException("The 'GrpcSettings:DiscountUrl' configuration is not set.");
             }
             opt.Address = new Uri(discountUrl);
+        }).ConfigurePrimaryHttpMessageHandler(() =>
+        {
+            var handler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+            };
+
+            return handler;
         });
+
 
         services.AddScoped<IBasketRepository, BasketRepository>();
         services.Decorate<IBasketRepository, CachedBasketRepository>();
