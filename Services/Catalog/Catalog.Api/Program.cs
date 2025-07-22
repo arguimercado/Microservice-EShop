@@ -27,7 +27,7 @@ builder.Services.AddHealthChecks()
 builder.Services.AddOpenApi();
 if(builder.Environment.IsDevelopment())
 {
-    //builder.Services.InitializeMartenWith<CatalogInitialData>();
+    builder.Services.InitializeMartenWith<CatalogInitialData>();
     
 }
 
