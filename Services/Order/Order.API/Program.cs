@@ -1,13 +1,14 @@
-using BuildingBlocks.Commons.Exceptions;
-using Carter;
 using Order.API.Commons.Extensions;
 using Order.Infrastructure;
+using Order.Application;
 using Scalar.AspNetCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services
+    .AddOrderApplication()
     .AddOrderInfrastructure(builder.Configuration)
     .AddApiService();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

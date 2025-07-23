@@ -2,8 +2,11 @@
 
 
 
+
+
+
   <ItemGroup>
-    <PackageReference Include="MediatR" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
   </ItemGroup>
 
 </Project>
