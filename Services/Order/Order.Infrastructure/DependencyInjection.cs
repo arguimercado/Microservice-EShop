@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Order.Application.Commons.Contracts;
+using Order.Application.Orders.Contracts;
+using Order.Infrastructure.Orders.Repositories;
 
 namespace Order.Infrastructure;
 
@@ -28,9 +31,10 @@ public static class DependencyInjection
             {
                 sqlOptions.MigrationsAssembly(typeof(SalesOrderDbContext).Assembly.FullName);
             });
-
         });
 
+        services.AddScoped<IUnitWork>(opt => opt.GetRequiredService<SalesOrderDbContext>());
+        services.AddScoped<ISalesOrderRepository, SalesOrderRepository>();
 
         return services;
     }

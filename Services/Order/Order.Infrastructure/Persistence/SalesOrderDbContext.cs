@@ -1,10 +1,11 @@
 ﻿
 
+using Order.Application.Commons.Contracts;
 using System.Reflection;
 
 namespace Order.Infrastructure.Persistence;
 
-public class SalesOrderDbContext : DbContext
+public class SalesOrderDbContext : DbContext, IUnitWork
 {
     public DbSet<SalesOrder> SalesOrders => Set<SalesOrder>();
     public DbSet<Customer> Customers => Set<Customer>();
@@ -23,5 +24,8 @@ public class SalesOrderDbContext : DbContext
 
     }
 
-
+    public async Task<int> CommitSaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        return await SaveChangesAsync(cancellationToken);
+    }
 }

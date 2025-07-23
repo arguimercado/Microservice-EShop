@@ -8,11 +8,11 @@ namespace Order.Domain.SalesOrderDomain.Models;
 public class SalesOrder : AggregateRoot<SalesOrderId>
 {
     public static SalesOrder Create(
-        CustomerId customerId,
+        Guid customerId,
         string customerName,
         Address shippingAddress,
         Address billingAddress
-    ) => new SalesOrder(SalesOrderId.New(), customerId, customerName, shippingAddress, billingAddress);
+    ) => new SalesOrder(SalesOrderId.New(),CustomerId.Of(customerId), customerName, shippingAddress, billingAddress);
 
     protected SalesOrder() : base(SalesOrderId.New()) {
 
