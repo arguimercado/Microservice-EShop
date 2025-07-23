@@ -1,18 +1,19 @@
 using BuildingBlocks.Commons.Exceptions;
 using Carter;
+using Order.API.Commons.Extensions;
+using Order.Infrastructure;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services
+    .AddOrderInfrastructure(builder.Configuration)
+    .AddApiService();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 
 
-builder.Services.AddCarter();
 
-builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
-builder.Services.AddProblemDetails();
-builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
@@ -21,10 +22,10 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.MapScalarApiReference();
+    await app.InitializeDbAsync();
 }
 
-app.UseExceptionHandler();
-app.UseHttpsRedirection();
-app.MapCarter();
+app.UseApiService();
+
 app.Run();
 

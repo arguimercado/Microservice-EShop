@@ -4,6 +4,8 @@ namespace Order.Domain.CustomerDomain.Models;
 
 public class Customer : Entity<CustomerId>
 {
+    public static Customer Create(CustomerId id, string name, string email)
+        => new Customer(id, name, email);
     public static Customer Create(string name, string email)
     {
         if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("Name cannot be empty.", nameof(name));

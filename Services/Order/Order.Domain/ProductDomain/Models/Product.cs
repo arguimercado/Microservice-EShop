@@ -4,6 +4,8 @@ namespace Order.Domain.ProductDomain.Models;
 
 public class Product : Entity<ProductId>
 {
+    public static Product Create(ProductId id, string name, string description, decimal price)
+        => new Product(id, name, description, price);
     public static Product Create(string name, string description, decimal price)
     {
         if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("Name cannot be empty.", nameof(name));

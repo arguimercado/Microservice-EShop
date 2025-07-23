@@ -2,7 +2,7 @@
 
 public record Address
 {
-    public static Address Create(string firstName, string lastName, string emailAddress, string addressLine, string city, string country, string state, string zipCode)
+    public static Address New(string firstName, string lastName, string emailAddress, string addressLine, string city, string country, string state, string zipCode)
     {
         return new Address(firstName, lastName, emailAddress, addressLine, city, country, state, zipCode);
     }

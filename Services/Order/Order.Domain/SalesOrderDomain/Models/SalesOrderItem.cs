@@ -17,14 +17,14 @@ public class SalesOrderItem : Entity<Guid>
     protected SalesOrderItem(Guid id, SalesOrderId orderId, ProductId productId, int quantity, decimal price) 
         : base(id) {   
         
-        OrderId = orderId;
+        SalesOrderId = orderId;
         ProductId = productId;
         Quantity = quantity;
         Price = price;
         
     }
 
-    public SalesOrderId OrderId { get; private set; } = default!;
+    public SalesOrderId SalesOrderId { get; private set; } = default!;
 
     public ProductId ProductId { get; private set; } = default!;
 
