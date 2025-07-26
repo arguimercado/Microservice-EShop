@@ -1,3 +1,2 @@
-﻿global using MediatR;
-global using Order.Domain.Commons.Abstractions;
-global using Order.Domain.Commons.Shared.ValueObjects;
+﻿global using Order.Domain.Commons.Shared.ValueObjects;
+global using DomainBlocks.Domains;

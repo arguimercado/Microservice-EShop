@@ -1,4 +1,5 @@
-﻿using Order.Domain.CustomerDomain.Types;
+﻿
+using Order.Domain.CustomerDomain.Types;
 
 namespace Order.Domain.CustomerDomain.Models;
 

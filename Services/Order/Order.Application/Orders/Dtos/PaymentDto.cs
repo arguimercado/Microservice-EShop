@@ -4,11 +4,11 @@ namespace Order.Application.Orders.Dtos;
 
 public record  PaymentDto
 {
-    public PaymentDto(string? cardName, string cardNumber, DateTime? expriration, int cVV, int paymentMethod)
+    public PaymentDto(string? cardName, string cardNumber, DateTime? expiration, int cVV, int paymentMethod)
     {
         CardName = cardName;
         CardNumber = cardNumber;
-        Expiration = expriration;
+        Expiration = expiration;
         CVV = cVV;
         PaymentMethod = paymentMethod;
     }
@@ -18,7 +18,7 @@ public record  PaymentDto
         return Payment.New(
             cardName: dto.CardName,
             cardNumber: dto.CardNumber,
-            expriration: dto.Expiration,
+            expiration: dto.Expiration,
             cVV: dto.CVV,
             paymentMethod: dto.PaymentMethod);
     }
@@ -28,7 +28,7 @@ public record  PaymentDto
         return new PaymentDto(
             cardName: payment.CardName,
             cardNumber: payment.CardNumber,
-            expriration: payment.Expriration,
+            expiration: payment.Expiration,
             cVV: payment.CVV,
             paymentMethod: payment.PaymentMethod
         );
@@ -36,7 +36,7 @@ public record  PaymentDto
 
     public string? CardName { get; init; }
     public string CardNumber { get; init; }
-    public DateTime Expiration { get; init; }
+    public DateTime? Expiration { get; init; }
     public int CVV { get; init; }
     public int PaymentMethod { get; init; }
 

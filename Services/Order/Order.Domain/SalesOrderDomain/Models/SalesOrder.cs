@@ -8,11 +8,11 @@ namespace Order.Domain.SalesOrderDomain.Models;
 public class SalesOrder : AggregateRoot<SalesOrderId>
 {
     public static SalesOrder Create(
-        Guid customerId,
+        CustomerId customerId,
         string customerName,
         Address shippingAddress,
         Address billingAddress
-    ) => new SalesOrder(SalesOrderId.New(),CustomerId.Of(customerId), customerName, shippingAddress, billingAddress);
+    ) => new SalesOrder(SalesOrderId.New(),customerId, customerName, shippingAddress, billingAddress);
 
     protected SalesOrder() : base(SalesOrderId.New()) {
 
@@ -49,7 +49,7 @@ public class SalesOrder : AggregateRoot<SalesOrderId>
         } 
     } 
 
-    public SalesOrder AddPayment(string cardName,string cardNumber, DateTime expiration,int cvv,int method) {
+    public SalesOrder AddPayment(string cardName,string cardNumber, DateTime? expiration,int cvv,int method) {
         
         Payment = Payment.New(cardName,cardNumber,expiration,cvv,method);
         return this;

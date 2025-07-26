@@ -9,7 +9,7 @@ using Order.Infrastructure.Persistence;
 
 #nullable disable
 
-namespace Order.Infrastructure.Persistence.Migrations
+namespace Order.Infrastructure.Migrations
 {
     [DbContext(typeof(SalesOrderDbContext))]
     partial class SalesOrderDbContextModelSnapshot : ModelSnapshot
@@ -186,6 +186,9 @@ namespace Order.Infrastructure.Persistence.Migrations
                                 .IsRequired()
                                 .HasMaxLength(24)
                                 .HasColumnType("nvarchar(24)");
+
+                            b1.Property<DateTime?>("Expiration")
+                                .HasColumnType("datetime");
 
                             b1.Property<int>("PaymentMethod")
                                 .HasColumnType("int");

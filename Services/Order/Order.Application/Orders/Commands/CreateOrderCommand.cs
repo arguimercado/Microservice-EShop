@@ -1,5 +1,6 @@
 ﻿using Order.Application.Commons.Contracts;
 using Order.Application.Orders.Contracts;
+using Order.Domain.CustomerDomain.Types;
 using Order.Domain.SalesOrderDomain.Models;
 
 namespace Order.Application.Orders.Commands;
@@ -40,7 +41,7 @@ internal class CreateOrderCommandHandler(
         
         
         var newOrder = SalesOrder.Create(
-                customerId: request.OrderRequest.CustomerId,
+                customerId: CustomerId.Of(request.OrderRequest.CustomerId),
                 customerName: request.OrderRequest.OrderName,
                 shippingAddress: shippingAddress,
                 billingAddress: billingAddress)

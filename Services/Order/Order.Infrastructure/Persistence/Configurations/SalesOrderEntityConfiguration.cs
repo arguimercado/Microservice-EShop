@@ -101,6 +101,10 @@ internal class SalesOrderEntityConfiguration : IEntityTypeConfiguration<SalesOrd
             pb.Property(p => p.PaymentMethod)
                 .HasColumnType("int")
                 .IsRequired();
+
+            pb.Property(p => p.Expiration)
+                .HasColumnType("datetime")
+                .IsRequired(false);
         });
 
         builder.Property(so => so.Status)

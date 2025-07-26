@@ -10,11 +10,11 @@ using Order.Infrastructure.Persistence;
 
 #nullable disable
 
-namespace Order.Infrastructure.Persistence.Migrations
+namespace Order.Infrastructure.Migrations
 {
     [DbContext(typeof(SalesOrderDbContext))]
-    [Migration("20250723070219_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250726142510_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -189,6 +189,9 @@ namespace Order.Infrastructure.Persistence.Migrations
                                 .IsRequired()
                                 .HasMaxLength(24)
                                 .HasColumnType("nvarchar(24)");
+
+                            b1.Property<DateTime?>("Expiration")
+                                .HasColumnType("datetime");
 
                             b1.Property<int>("PaymentMethod")
                                 .HasColumnType("int");
