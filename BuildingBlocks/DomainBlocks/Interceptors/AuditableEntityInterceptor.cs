@@ -1,8 +1,9 @@
-﻿
+﻿using DomainBlocks.Domains;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 
-namespace Order.Infrastructure.Persistence.Interceptors;
+namespace DomainBlocks.Interceptors;
 
 public class AuditableEntityInterceptor() : SaveChangesInterceptor
 {
@@ -32,8 +33,7 @@ public class AuditableEntityInterceptor() : SaveChangesInterceptor
             }
 
             if (entry.State == EntityState.Added || 
-                entry.State == EntityState.Modified || 
-                entry.HasChangedOwnedEntities()) {
+                entry.State == EntityState.Modified) {
                 
                 entry.Entity.LastModifiedOn = DateTime.UtcNow;
                 entry.Entity.LastModifiedBy = "System"; // Replace with actual user context if available

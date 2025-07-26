@@ -1,7 +1,9 @@
-﻿
+﻿using DomainBlocks.Domains;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace Order.Infrastructure.Persistence.Interceptors;
+namespace DomainBlocks.Interceptors;
 
 public class DomainEventInterceptor(IMediator mediator) : SaveChangesInterceptor
 {
