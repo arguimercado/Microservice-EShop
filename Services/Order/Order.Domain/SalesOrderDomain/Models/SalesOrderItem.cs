@@ -6,27 +6,29 @@ namespace Order.Domain.SalesOrderDomain.Models;
 public class SalesOrderItem : Entity<Guid>
 {
 
-    public static SalesOrderItem Create(SalesOrderId orderId, ProductId productId, int quantity, decimal price)
-        => new SalesOrderItem(Guid.NewGuid(), orderId, productId, quantity, price);
+    public static SalesOrderItem Create(SalesOrderId orderId, ProductId productId,string productName, int quantity, decimal price)
+        => new SalesOrderItem(Guid.NewGuid(), orderId, productId,productName, quantity, price);
 
 
     //use in Entity Framework
     protected SalesOrderItem() : base(Guid.NewGuid()) {}
     
     
-    protected SalesOrderItem(Guid id, SalesOrderId orderId, ProductId productId, int quantity, decimal price) 
+    protected SalesOrderItem(Guid id, SalesOrderId orderId, ProductId productId,string productName, int quantity, decimal price) 
         : base(id) {   
         
         SalesOrderId = orderId;
         ProductId = productId;
         Quantity = quantity;
         Price = price;
-        
+        ProductName = productName;
+
     }
 
     public SalesOrderId SalesOrderId { get; private set; } = default!;
-
     public ProductId ProductId { get; private set; } = default!;
+
+    public string ProductName { get; private set; } = default!;
 
     public int Quantity { get; private set; } = default!;
     public decimal Price { get; private set; } = default!;

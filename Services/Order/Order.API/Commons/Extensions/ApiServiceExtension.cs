@@ -11,7 +11,7 @@ public static class ApiServiceExtension
         services.AddExceptionHandler<GlobalExceptionHandler>();
         services.AddProblemDetails();
         services.AddOpenApi();
-        services.AddCarter();
+       
         return services;
     }
 

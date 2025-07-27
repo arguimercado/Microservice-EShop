@@ -79,13 +79,13 @@ public class SalesOrder : AggregateRoot<SalesOrderId>
         return this;
     }
 
-    public SalesOrder AddOrderItem(ProductId productId, int quantity, decimal price)
+    public SalesOrder AddOrderItem(ProductId productId,string productName, int quantity, decimal price)
     {
         if (productId == null) throw new ArgumentNullException(nameof(productId));
         if (quantity <= 0) throw new ArgumentOutOfRangeException(nameof(quantity), "Quantity must be greater than zero.");
         if (price <= 0) throw new ArgumentOutOfRangeException(nameof(price), "Price must be greater than zero.");
         
-        var item = SalesOrderItem.Create(Id, productId, quantity, price);
+        var item = SalesOrderItem.Create(Id, productId,productName, quantity, price);
         return AddOrderItem(item);
         
     }

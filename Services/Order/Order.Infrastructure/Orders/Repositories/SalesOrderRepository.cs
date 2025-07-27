@@ -1,4 +1,5 @@
-﻿using Order.Application.Orders.Contracts;
+﻿using DomainBlocks.Commons.Options;
+using Order.Application.Orders.Contracts;
 
 namespace Order.Infrastructure.Orders.Repositories;
 
@@ -10,9 +11,13 @@ internal class SalesOrderRepository(SalesOrderDbContext context) : ISalesOrderRe
         context.SalesOrders.Add(salesOrder);
     }
 
-    public Task<IEnumerable<SalesOrder>> GetOrdersAsync(CancellationToken cancellationToken)
+    public async Task<IEnumerable<SalesOrder>> GetOrdersAsync(PaginationRequest pagination,CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await context.SalesOrders
+            .Include(o => o.SalesOrderItems)
+            .Take(pagination.PageSize)
+            .Skip((pagination.PageNumber - 1) * pagination.PageSize)
+            .ToListAsync(cancellationToken);
     }
 
     public void Update(SalesOrder salesOrder)
