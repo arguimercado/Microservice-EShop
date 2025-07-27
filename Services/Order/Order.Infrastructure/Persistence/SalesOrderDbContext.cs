@@ -1,6 +1,4 @@
 ﻿
-
-using Order.Application.Commons.Contracts;
 using System.Reflection;
 
 namespace Order.Infrastructure.Persistence;
@@ -24,7 +22,8 @@ public class SalesOrderDbContext : DbContext, IUnitWork
 
     }
 
-    public async Task<int> CommitSaveChangesAsync(CancellationToken cancellationToken = default)
+   
+    public async Task<int> CommitChangesAsync(CancellationToken cancellationToken = default)
     {
         return await SaveChangesAsync(cancellationToken);
     }

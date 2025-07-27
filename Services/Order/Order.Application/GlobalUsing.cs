@@ -2,3 +2,10 @@
 global using FluentResults;
 global using BuildingBlocks.CQRS;
 global using Order.Application.Orders.Dtos;
+global using MediatR;
+global using Microsoft.Extensions.Logging;
+global using Order.Domain.SalesOrderDomain.Types;
+global using BuildingBlocks.Commons.Errors;
+global using DomainBlocks.Commons.Options;
+global using Order.Application.Orders.Contracts;
+global using DomainBlocks.Contracts;

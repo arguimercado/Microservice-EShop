@@ -1,17 +1,13 @@
-﻿using DomainBlocks.Commons.Options;
-using Order.Application.Orders.Contracts;
+﻿namespace Order.Application.Orders.Queries;
 
-namespace Order.Application.Orders.Queries;
+public record GetOrdersQuery(PaginationRequest Request) : IQuery<IEnumerable<SalesOrderDto>>;
 
-public record GetOrdersQuery(PaginationRequest Request) : IQuery<IEnumerable<SalesOrderRequestDto>>;
-
-internal class GetOrdersQueryHandler(ISalesOrderRepository salesOrderRepository) : IQueryHandler<GetOrdersQuery, IEnumerable<SalesOrderRequestDto>>
+internal class GetOrdersQueryHandler(ISalesOrderRepository salesOrderRepository) : IQueryHandler<GetOrdersQuery, IEnumerable<SalesOrderDto>>
 {
-  
-    public async Task<Result<IEnumerable<SalesOrderRequestDto>>> Handle(GetOrdersQuery request, CancellationToken cancellationToken)
+    public async Task<Result<IEnumerable<SalesOrderDto>>> Handle(GetOrdersQuery request, CancellationToken cancellationToken)
     {
         var orders = await salesOrderRepository.GetOrdersAsync(request.Request, cancellationToken);
-        var orderDtos = orders.Select(o => SalesOrderMapper.MapToDto(o));
+        IEnumerable<SalesOrderDto> orderDtos = orders.Select(o => SalesOrderMapper.MapToDto(o));
 
         return Result.Ok(orderDtos);
     }

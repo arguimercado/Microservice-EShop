@@ -1,5 +1,4 @@
-﻿using Order.Application.Commons.Contracts;
-using Order.Application.Orders.Contracts;
+﻿
 using Order.Domain.CustomerDomain.Types;
 using Order.Domain.ProductDomain.Types;
 using Order.Domain.SalesOrderDomain.Models;
@@ -42,7 +41,7 @@ internal class CreateOrderCommandHandler(
 
         repository.Add(newOrder);
 
-        await unitWork.CommitSaveChangesAsync(cancellationToken);
+        await unitWork.CommitChangesAsync(cancellationToken);
 
         return Result.Ok(new CreateOrderResult(newOrder.Id.Value.ToString()));
     }

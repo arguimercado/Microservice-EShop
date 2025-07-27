@@ -12,3 +12,6 @@ global using Order.Infrastructure.Persistence;
 global using Order.Domain.Commons.Shared.ValueObjects;
 
 global using DomainBlocks.Interceptors;
+global using DomainBlocks.Contracts;
+
+

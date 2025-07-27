@@ -10,7 +10,7 @@
  
 
   <ItemGroup>
-    <Folder Include="Orders\EventHandlers\" />
+    <Folder Include="Commons\" />
   </ItemGroup>
 
 </Project>

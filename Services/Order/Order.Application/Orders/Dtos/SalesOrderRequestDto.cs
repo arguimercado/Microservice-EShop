@@ -8,6 +8,7 @@ public static class SalesOrderMapper
     {
 
         return new SalesOrderDto(
+            OrderId: salesOrder.Id.Value,
             CustomerId: salesOrder.CustomerId.Value,
             OrderName: salesOrder.CustomerName,
             ShippingAddress: AddressDto.MapToDto(salesOrder.ShippingAddress),
@@ -18,6 +19,7 @@ public static class SalesOrderMapper
 }
 
 public record SalesOrderDto(
+    Guid OrderId,
     Guid CustomerId,
     string OrderName,
     AddressDto ShippingAddress,
@@ -33,6 +35,8 @@ public record SalesOrderRequestDto(
     AddressDto BillingAddress,
     PaymentDto Payment,
     IEnumerable<OrderItemDto> OrderItems);
+
+public record SalesOrderRequestUpdateDto(string OrderStatus);
 
 
 

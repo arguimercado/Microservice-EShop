@@ -57,7 +57,11 @@ public class SalesOrder : AggregateRoot<SalesOrderId>
 
     public OrderStatusEnum Status { get; private set; } = OrderStatusEnum.Pending;
 
-    public void ChangeStatus(OrderStatusEnum status) => Status = status;
+    public void ChangeStatus(OrderStatusEnum status)
+    {
+        Status = status;
+        AddDomainEvent(new OrderChangeStatusEvent(this));
+    }
 
     private readonly List<SalesOrderItem> _salesOrderItems = new();
     public IReadOnlyCollection<SalesOrderItem> SalesOrderItems => _salesOrderItems.AsReadOnly();
@@ -68,7 +72,7 @@ public class SalesOrder : AggregateRoot<SalesOrderId>
         ShippingAddress = shipping ?? throw new ArgumentNullException(nameof(shipping));
         BillingAddress = billing ?? throw new ArgumentNullException(nameof(billing));
         
-        AddDomainEvent(new OrderAddressUpdatedEvent(this, shipping, billing));
+        
         return this;
     }
 

@@ -11,19 +11,43 @@ public class SalesOrderEndpoint : BaseModule
     {
         var group = app.MapGroup("api/orders");
 
-
-        group.MapPost("", async ([FromBody]SalesOrderRequestDto request,ISender sender) =>
+        group.MapPost("", async ([FromBody] SalesOrderRequestDto request, ISender sender) =>
         {
             var command = new CreateOrderCommand(request);
             var response = await sender.Send(command);
 
+            return HandleResults(response);
+        });
+
+        group.MapPut("{orderId:guid}", async ([FromRoute]Guid orderId,[FromBody]SalesOrderRequestUpdateDto request, ISender sender) => {
+
+            var command = new UpdateOrderStatusCommand(orderId, request);
+            var response = await sender.Send(command);
 
             return HandleResults(response);
         });
-        group.MapGet("", async ([AsParameters]PaginationRequest pagination,ISender sender) =>
+
+        
+        group.MapGet("", async ([AsParameters] PaginationRequest pagination, ISender sender) =>
         {
             var query = new GetOrdersQuery(pagination);
             var response = await sender.Send(query);
+            return HandleResults(response);
+        });
+
+        group.MapGet("/{orderId:guid}", async ([FromRoute] Guid orderId, ISender sender) =>
+        {
+            var query = new GetSingleOrderQuery(orderId);
+            var response = await sender.Send(query);
+
+            return HandleResults(response);
+        });
+
+        group.MapGet("/{customerId:guid}/customer", async ([FromRoute] Guid customerId, ISender sender) =>
+        {
+            var query = new GetOrdersByCustomerQuery(customerId);
+            var response = await sender.Send(query);
+
             return HandleResults(response);
         });
     }
