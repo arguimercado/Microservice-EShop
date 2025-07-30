@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <Folder Include="MassTransits\" />
+    <PackageReference Include="MassTransit.RabbitMQ" />
   </ItemGroup>
 </Project>

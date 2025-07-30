@@ -40,6 +40,14 @@ public class BasketEndpoint : BaseModule
 
             return HandleResults(result);
         });
+
+        appGroup.MapPost("/checkout", async (CheckoutBasketRequest request,ISender sender) =>
+        {
+            var command = new CheckoutBasketCommand(request);
+            var result = await sender.Send(command);
+            return HandleResults(result);
+        
+        }).WithDescription("Checkout ");
     }
     
 }

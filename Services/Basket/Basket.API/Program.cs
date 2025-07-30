@@ -1,5 +1,6 @@
 using Basket.API.Commons.Extensions;
 using BuildingBlocks.Commons.Exceptions;
+using BuildingBlocks.Messaging.MassTransits;
 using Catalog.Api.Commons.Extensions;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -22,6 +23,9 @@ var connectionRedisString = builder.Configuration.GetConnectionString("RedisConn
 builder.Services.AddHealthChecks()
     .AddNpgSql(connectionNpSqlString!)
     .AddRedis(connectionRedisString!);
+
+//Async Communication Service
+builder.Services.AddMessageBroker(builder.Configuration);
 
 
 var app = builder.Build();
