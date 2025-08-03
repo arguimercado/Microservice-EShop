@@ -1,7 +1,8 @@
 ﻿using Basket.API.Baskets.Contracts;
 using Basket.API.Baskets.Dtos;
-using BuildingBlocks.Messaging.Events;
+using BuildingBlocks.Messaging.Basket.Events;
 using MassTransit;
+using Order.Application.Orders.Dtos;
 
 namespace Basket.API.Baskets.Features.Commands;
 
@@ -78,26 +79,42 @@ internal class CheckoutBasketCommandHandler(IBasketRepository basketRepository,
         if (basket is null) {
             return Result.Ok(new CheckoutBasketResponse(false));
         }
+        
+        var orderEventDto = new SalesOrderRequestEventDto(
+            UserName: basketRequest.UserName,
+            CustomerId: basketRequest.CustomerId,
+            TotalPrice: basket.TotalPrice,
+            FirstName: basketRequest.FirstName,
+            LastName: basketRequest.LastName,
+            EmailAddress: basketRequest.EmailAddress,
+            AddressLine: basketRequest.AddressLine,
+            Country: basketRequest.Country,
+            City: basketRequest.City,
+            State: basketRequest.State,
+            ZipCode: basketRequest.ZipCode,
+            CardName: basketRequest.CardName,
+            CardNumber: basketRequest.CardNumber,
+            Expiration: basketRequest.Expiration,
+            CVV: basketRequest.CVV,
+            PaymentMethod: basketRequest.PaymentMethod);
+
+        var orderItemEventDtos = new List<OrderItemEventDto>();
+
+        foreach (var item in basket.Items)
+        {
+            orderItemEventDtos.Add(new OrderItemEventDto(
+                ProductId: item.ProductId,
+                ProductName: item.ProductName,
+                Quantity: item.Quantity,
+                Price: item.Price));
+        }
 
         var eventMessage = new BasketCheckoutEvent
         {
-            UserName = basketRequest.UserName,
-            CustomerId = basketRequest.CustomerId,
-            TotalPrice = basket.TotalPrice,
-            FirstName = basketRequest.FirstName,
-            LastName = basketRequest.LastName,
-            EmailAddress = basketRequest.EmailAddress,
-            AddressLine = basketRequest.AddressLine,
-            Country = basketRequest.Country,
-            City = basketRequest.City,
-            State = basketRequest.State,
-            ZipCode = basketRequest.ZipCode,
-            CardName = basketRequest.CardName,
-            CardNumber = basketRequest.CardNumber,
-            Expiration = basketRequest.Expiration,
-            CVV = basketRequest.CVV,
-            PaymentMethod = basketRequest.PaymentMethod
+            OrderEvent = orderEventDto,
+            OrderItems = orderItemEventDtos
         };
+
 
         await publishEndpoint.Publish(eventMessage, cancellationToken);
         await basketRepository.DeleteBasketAsync(basket, cancellationToken);

@@ -1,6 +1,6 @@
 ﻿using Order.Domain.SalesOrderDomain.Events;
 
-namespace Order.Application.Orders.EventHandlers;
+namespace Order.Application.Orders.EventHandlers.Domains;
 
 public class OrderUpdateStatusEventHandler : INotificationHandler<OrderChangeStatusEvent>
 {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.FeatureManagement;
 using Order.Infrastructure.Persistence;
 using Order.Infrastructure.Persistence.Extensions;
 
@@ -10,8 +11,10 @@ public static class DatabaseExtension
     {
         using var scope = app.Services.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<SalesOrderDbContext>();
+        
 
         await dbContext.Database.MigrateAsync();
+        
 
         await SeedAsync(dbContext);
     }

@@ -3,17 +3,27 @@
 public record BasketCheckoutDto
 {
     public BasketCheckoutDto(
-        string userName, Guid customerId, 
-        decimal totalPrice, string firstName, 
-        string lastName, string emailAddress,
-        string addressLine, string country, 
-        string city, string state, string zipCode, 
-        string cardName, string cardNumber, string expiration, 
-        string cVV, int paymentMethod)
+        
+        string userName, 
+        Guid customerId, 
+        string firstName, 
+        string lastName, 
+        string emailAddress,
+        string addressLine, 
+        string country, 
+        string city, 
+        string state, 
+        string zipCode, 
+        string cardName, 
+        string cardNumber, 
+        string expiration, 
+        string cVV, 
+        int paymentMethod)
     {
+       
         UserName = userName;
         CustomerId = customerId;
-        TotalPrice = totalPrice;
+
         FirstName = firstName;
         LastName = lastName;
         EmailAddress = emailAddress;
@@ -29,6 +39,7 @@ public record BasketCheckoutDto
         PaymentMethod = paymentMethod;
     }
 
+   
     public string UserName { get;  } = default!;
     public Guid CustomerId { get;  } = default!;
     public decimal TotalPrice { get;  } = default!;
