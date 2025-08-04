@@ -43,6 +43,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainBlocks", "BuildingBlo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks.Messaging", "BuildingBlocks\BuildingBlocks.Messaging\BuildingBlocks.Messaging.csproj", "{9515B340-6ECF-4479-86C3-6F56574DC657}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BankCodes", "BankCodes", "{B1C0DFE9-5A43-4542-A686-32C33C5445BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankCode.API", "Services\BankCodes\BankCode.API\BankCode.API.csproj", "{59E31BCE-8798-40BD-B25E-458B8212C332}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +97,10 @@ Global
 		{9515B340-6ECF-4479-86C3-6F56574DC657}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9515B340-6ECF-4479-86C3-6F56574DC657}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9515B340-6ECF-4479-86C3-6F56574DC657}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59E31BCE-8798-40BD-B25E-458B8212C332}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59E31BCE-8798-40BD-B25E-458B8212C332}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59E31BCE-8798-40BD-B25E-458B8212C332}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59E31BCE-8798-40BD-B25E-458B8212C332}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,6 +120,8 @@ Global
 		{5C6B0D85-1A8F-4F80-A3A8-76EC1945C0E9} = {E9F6EF22-74EC-40CD-86CB-499DC1F684F3}
 		{EA5BA0D5-E2A9-454A-970B-BF66415FC794} = {BAF239D5-85E5-430B-9D20-C6F7A0F54EF6}
 		{9515B340-6ECF-4479-86C3-6F56574DC657} = {BAF239D5-85E5-430B-9D20-C6F7A0F54EF6}
+		{B1C0DFE9-5A43-4542-A686-32C33C5445BC} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{59E31BCE-8798-40BD-B25E-458B8212C332} = {B1C0DFE9-5A43-4542-A686-32C33C5445BC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {16BB4FBD-5950-4353-A9E6-699920F46EC2}
