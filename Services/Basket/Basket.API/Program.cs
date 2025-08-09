@@ -37,7 +37,6 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 app.UseExceptionHandler();
-app.UseHttpsRedirection();
 app.MapCarter();
 
 app.UseHealthChecks("/api/health", new HealthCheckOptions

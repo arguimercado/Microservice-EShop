@@ -41,7 +41,6 @@ if (app.Environment.IsDevelopment())
     
 }
 app.UseExceptionHandler();
-app.UseHttpsRedirection();
 app.MapCarter();
 
 app.UseHealthChecks("/api/health", new HealthCheckOptions

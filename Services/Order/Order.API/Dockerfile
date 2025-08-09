@@ -15,6 +15,12 @@ WORKDIR /src
 COPY ["Directory.Packages.props", "."]
 COPY ["Directory.Build.props", "."]
 COPY ["Services/Order/Order.API/Order.API.csproj", "Services/Order/Order.API/"]
+COPY ["BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj", "BuildingBlocks/BuildingBlocks/"]
+COPY ["Services/Order/Order.Application/Order.Application.csproj", "Services/Order/Order.Application/"]
+COPY ["BuildingBlocks/BuildingBlocks.Messaging/BuildingBlocks.Messaging.csproj", "BuildingBlocks/BuildingBlocks.Messaging/"]
+COPY ["Services/Order/Order.Domain/Order.Domain.csproj", "Services/Order/Order.Domain/"]
+COPY ["BuildingBlocks/DomainBlocks/DomainBlocks.csproj", "BuildingBlocks/DomainBlocks/"]
+COPY ["Services/Order/Order.Infrastructure/Order.Infrastructure.csproj", "Services/Order/Order.Infrastructure/"]
 RUN dotnet restore "./Services/Order/Order.API/Order.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Order/Order.API"
